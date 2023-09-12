@@ -33,14 +33,13 @@ class Detector(Node):
         if type(self.image) == numpy.ndarray:
             H, W = self.engine.inp_info[0].shape[-2:]
             self.engine.set_desired(['num_dets', 'bboxes', 'scores', 'labels'])
-
-            #while True:    
+  
             self.image, ratio, dwdh = letterbox(self.image, (W, H))
             rgb = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
             tensor = blob(rgb, return_seg=False)
             dwdh = torch.asarray(dwdh * 2, dtype=torch.float32, device=self.device)
             tensor = torch.asarray(tensor, device=self.device)
-            # inference
+            
             data = self.engine(tensor)
 
             bboxes, scores, labels = det_postprocess(data)
@@ -65,8 +64,6 @@ class Detector(Node):
             self.publisher.publish(msg)
             self.get_logger().info('publishing')
         
-        
-
             
 def main(args=None):
     rclpy.init(args=args)
