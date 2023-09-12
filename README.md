@@ -7,7 +7,9 @@ ___
 
 2. Install `ROS2 humble` follow [_ROS2 humble installation_](https://docs.ros.org/en/humble/Installation.html).
 
-3. Install python requirements.
+3. Install `cv_bridge` library follow [_cv_bridge_](https://answers.ros.org/question/262329/how-to-install-cv_bridge/): 
+
+4. Install python requirements.
 `
 $ pip install -r requirements.txt
 `
