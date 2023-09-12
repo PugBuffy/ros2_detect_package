@@ -11,8 +11,10 @@ class Camera(Node):
         super().__init__('camera')
         self.publisher = self.create_publisher(Image, '/image', 1)
         self.cap = cv2.VideoCapture('/dev/video0')
+        #self.cap = cv2.VideoCapture('/home/sergey/workspace/ros2_ws/src/detector/vehicle-counting.mp4')
+        #self.cap = cv2.VideoCapture('/root/src/detector/vehicle-counting.mp4')
         self.bridge = CvBridge()
-        self.get_logger().info('Start...')
+        self.get_logger().info('Start camera...')
         self.timer = self.create_timer(0, self.callback) 
 
     def callback(self):

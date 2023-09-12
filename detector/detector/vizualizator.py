@@ -19,6 +19,7 @@ class Vizualizator(Node):
         self.bridge = CvBridge()
         self.classes = ('pedestrian', 'car', 'cyclist', 'truck')
         self.colors = {cls: [random.randint(0, 255) for _ in range(3)] for cls in self.classes}
+        self.get_logger().info('Start vizualizator...')
 
     def image_callback(self, data: Image):
         self.image = self.bridge.imgmsg_to_cv2(data, 'bgr8')

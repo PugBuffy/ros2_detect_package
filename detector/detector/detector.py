@@ -19,11 +19,12 @@ class Detector(Node):
         self.image = numpy.ndarray
         self.publisher = self.create_publisher(Object2DArray, "/detection", 1)
         self.timer = self.create_timer(0, self.publish_bbox)
-        self.get_logger().info('Start...')    
+        self.get_logger().info('Start detector...')    
         
         self.bridge = CvBridge()
         self.device = torch.device("cuda:0")
-        path_to_engine = "/home/sergey/workspace/ros2_ws/src/detector/yolov8s.engine" # /root/src/detector/yolov8s.engine for docker
+        #path_to_engine = "/root/src/detector/yolov8s.engine" # for docker 
+        path_to_engine = "/home/sergey/workspace/ros2_ws/src/detector/yolov8s.engine"
         self.engine = TRTModule(path_to_engine, self.device) 
 
     def image_callback(self, data: Image):
