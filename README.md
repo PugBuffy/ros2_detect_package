@@ -48,12 +48,12 @@ Run detector node:
 `
 
 Run vizualizator node:
-`$ ros2 run detector vizualizator
+`$ ros2 run objects_vis draw_objects
 `
 
-If you want to run all the nodes use launch system:
+If you want to run all the nodes use launch:
 
-`$ ros2 launch launch launch_file.launch.py
+`$ ros2 launch detector yolov8s_detector.launch.py
 `
 ___
 

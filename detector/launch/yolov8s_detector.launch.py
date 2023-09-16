@@ -15,8 +15,8 @@ def generate_launch_description():
     )
 
     vizualizator = Node(
-        package="detector",
-        executable="vizualizator"
+        package="objects_vis",
+        executable="draw_objects"
     )
 
     ld.add_action(camera)
