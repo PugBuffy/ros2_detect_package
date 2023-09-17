@@ -24,7 +24,8 @@ setup(
         'console_scripts': [
             'detector = detector.detector:main',
             'camera = detector.camera:main',
-            'vizualizator = detector.vizualizator:main'
+            'vizualizator = detector.vizualizator:main',
+            'debug_detector = detector.debug_detector:main'
         ],
     },
 )
