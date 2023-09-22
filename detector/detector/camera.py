@@ -10,18 +10,27 @@ class Camera(Node):
     def __init__(self):
         super().__init__('camera')
         self.publisher = self.create_publisher(Image, '/image', 1)
-        self.cap = cv2.VideoCapture('/dev/video0')
-        #self.cap = cv2.VideoCapture('/home/sergey/workspace/ros2_ws/src/detector/vehicle-counting.mp4')
-        #self.cap = cv2.VideoCapture('/root/src/detector/vehicle-counting.mp4')
         self.bridge = CvBridge()
-        self.get_logger().info('Start camera...')
+        self.declare_parameter('video_file', '/dev/video1')
+        self.cap = cv2.VideoCapture(self.get_parameter('video_file').get_parameter_value().string_value)
         self.timer = self.create_timer(0, self.callback) 
+        self.get_logger().info('Start camera...')
 
     def callback(self):
-        image = self.cap.read()[1]
-        image = self.bridge.cv2_to_imgmsg(image, 'bgr8')
-        self.publisher.publish(image)
-        self.get_logger().info('sending')
+        if self.get_parameter('video_file').get_parameter_value().string_value == '/dev/video0':
+            image = self.cap.read()[1]
+            image = self.bridge.cv2_to_imgmsg(image, 'bgr8')
+            self.publisher.publish(image)
+        else:
+            while self.cap.isOpened():
+                res, image = self.cap.read()
+            
+                if res:
+                    image = self.bridge.cv2_to_imgmsg(image, 'bgr8')
+                    self.publisher.publish(image)
+                else:
+                    self.cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+                    continue
         
 
 def main(args=None):
