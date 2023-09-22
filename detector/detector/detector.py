@@ -18,7 +18,6 @@ class Detector(Node):
         self.subscriber = self.create_subscription(Image, '/image', self.image_callback, 1)
         self.image = numpy.ndarray
         self.publisher = self.create_publisher(Object2DArray, "/detection", 1)
-        self.timer = self.create_timer(0, self.publish_bbox)
         self.get_logger().info('Start detector...')    
         
         self.bridge = CvBridge()
@@ -29,6 +28,7 @@ class Detector(Node):
 
     def image_callback(self, data: Image):
         self.image = self.bridge.imgmsg_to_cv2(data, 'bgr8')
+        self.publish_bbox()
 
     def publish_bbox(self):
         if type(self.image) == numpy.ndarray:
@@ -63,7 +63,6 @@ class Detector(Node):
                 msg.objects.append(object)
 
             self.publisher.publish(msg)
-            self.get_logger().info('publishing')
         
             
 def main(args=None):
