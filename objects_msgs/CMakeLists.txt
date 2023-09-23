@@ -19,8 +19,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Object2DArray.msg"
   "msg/ObjectArray.msg"
   "msg/ObjectLabel.msg"
-  "msg/DebugObject2D.msg"
-  "msg/DebugObject2DArray.msg"
   DEPENDENCIES std_msgs geometry_msgs
 )
 

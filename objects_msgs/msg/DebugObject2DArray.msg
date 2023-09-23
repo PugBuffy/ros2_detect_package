@@ -1,1 +1,0 @@
-DebugObject2D[] objects

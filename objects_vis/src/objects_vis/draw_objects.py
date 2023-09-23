@@ -19,7 +19,7 @@ class DrawObjects(Node):
         self.bridge = CvBridge()
 
         self.declare_parameter('queue_size', 5)
-        self.declare_parameter('visualize', True)
+        self.declare_parameter('visualize', False)
         self.declare_parameter('color', 'label')
         self.declare_parameter('label_fmt', '{label} {score:0.2f}')
         self.declare_parameter('font_scale', 1.0)
