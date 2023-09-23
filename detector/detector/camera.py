@@ -11,9 +11,14 @@ class Camera(Node):
         super().__init__('camera')
         self.publisher = self.create_publisher(Image, '/image', 1)
         self.bridge = CvBridge()
-        self.declare_parameter('video_file', '/dev/video1')
-        self.cap = cv2.VideoCapture(self.get_parameter('video_file').get_parameter_value().string_value)
-        self.timer = self.create_timer(0, self.callback) 
+        self.declare_parameter('video_file', '/dev/video0')
+        self.declare_parameter('timer_period_sec', 0)
+
+        video_file = self.get_parameter('video_file').get_parameter_value().string_value
+        timer_period_sec = self.get_parameter('timer_period_sec').get_parameter_value().integer_value
+
+        self.cap = cv2.VideoCapture(video_file)
+        self.timer = self.create_timer(timer_period_sec, self.callback) 
         self.get_logger().info('Start camera...')
 
     def callback(self):
@@ -24,7 +29,7 @@ class Camera(Node):
         else:
             while self.cap.isOpened():
                 res, image = self.cap.read()
-            
+               
                 if res:
                     image = self.bridge.cv2_to_imgmsg(image, 'bgr8')
                     self.publisher.publish(image)
