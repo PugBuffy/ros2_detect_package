@@ -1,6 +1,5 @@
 import rclpy
-import cv2
-import random
+import cv2  
 
 from message_filters import ApproximateTimeSynchronizer, Subscriber
 from bboxes_ex_msgs.msg import BoundingBoxes
@@ -8,12 +7,18 @@ from rclpy.node import Node
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 
+
 class Vizualizator(Node):
     def __init__(self):
         super().__init__('vizualizator')
         self.bridge = CvBridge()
         self.classes = ('pedestrian', 'car', 'cyclist', 'truck')
-        self.colors = {cls: [random.randint(0, 255) for _ in range(3)] for cls in self.classes}
+        self.colors = {
+            'pedestrian':(0,255,0),
+            'car' : (0, 0, 255),
+            'cyclist' : (0, 0, 0),
+            'truck' : (0, 255, 255)
+        }
 
         subscribers = [
             Subscriber(self, Image, '/image'),
@@ -39,10 +44,10 @@ class Vizualizator(Node):
                           self.colors[object.class_id], -1)
 
             cv2.putText(img, 
-                        f'{object.class_id}:{object.probability:.3f}',
+                        f'{object.id}:{object.class_id}',
                         (object.xmin, object.ymin - 2),
                         cv2.FONT_HERSHEY_SIMPLEX, 
-                        0.65, [0, 0, 0],
+                        0.75, [0, 0, 0],
                         thickness=2)
             
         msg = self.bridge.cv2_to_imgmsg(img, 'bgr8')
