@@ -52,10 +52,11 @@ class Detector(Node):
             bbox = bbox.round().int().tolist()
 
             object.probability = score.float().tolist()
-            object.xmin = abs(bbox[0])
-            object.ymin = bbox[1]
-            object.xmax = bbox[2]
-            object.ymax = bbox[3]
+            object.xmin = abs(bbox[1])
+            object.ymin = abs(bbox[0])
+            
+            object.xmax = bbox[3]
+            object.ymax = bbox[2]
             object.img_height = 2160
             object.img_width = 3840
             object.center_dist = int(sqrt((bbox[2] - bbox[0]) ** 2 + (bbox[3] - bbox[1]) ** 2) / 2)

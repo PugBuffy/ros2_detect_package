@@ -26,10 +26,11 @@ class Detector(Node):
         path_to_engine = os.path.abspath('src/detector/yolov8s.engine')
         self.engine = TRTModule(path_to_engine, self.device) 
 
-        print(os.path.join(get_package_share_directory('detector'), 'launch', 'yolov8s.engine'))
-
 
     def image_callback(self, image: Image):
+        msg = Object2DArray()    
+        msg.header = image.header
+
         image = self.bridge.imgmsg_to_cv2(image, 'bgr8')
 
         H, W = self.engine.inp_info[0].shape[-2:]
@@ -45,8 +46,6 @@ class Detector(Node):
         bboxes, scores, labels = det_postprocess(data)
         bboxes -= dwdh
         bboxes /= ratio
-
-        msg = Object2DArray()
 
         for (bbox, score, label) in zip(bboxes, scores, labels):
             object = Object2D() 
