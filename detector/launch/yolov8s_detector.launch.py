@@ -7,6 +7,9 @@ def generate_launch_description():
     camera = Node(
         package="detector",
         executable="camera"
+        # parameters=[
+        #     {'video_file':'/dev/video0'}
+        # ]
     )
 
     detector = Node(

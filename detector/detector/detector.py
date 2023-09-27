@@ -1,10 +1,8 @@
 import rclpy
 import cv2
 import torch
-import numpy
-import os 
+import os
 
-from ament_index_python.packages import get_package_share_directory
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from rclpy.node import Node
