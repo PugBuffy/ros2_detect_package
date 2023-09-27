@@ -39,11 +39,15 @@ ___
 
 ### 3. Usage of the nodes
 
-Run camera node:
+To run a usb-camera with camera node use:
 `$ ros2 run detector camera
 ` 
 
-Run detector node:
+To run a video file with camera node use:
+`$ ros2 run detector camera --ros-args -p video_file:=<path_to_video>
+`
+
+To run detector node go into the ros-workspace and use:
 `$ ros2 run detector detector
 `
 
@@ -52,14 +56,13 @@ Run vizualizator node:
 `
 
 If you want to run all the nodes use launch:
-
 `$ ros2 launch detector yolov8s_detector.launch.py
 `
+Change a path to video file in yolov8s_detector.launch.py if you want to run your video.
 ___
 
 ### 4. Docker
 Install on your host [_nvidia/docker2_](https://cpab.ru/kak-ispolzovat-graficheskij-processor-nvidia-s-kontejnerami-docker-cloudsavvy-it/) to use GPU in container.
-Change paths in __detector_.py_ node and build ros workspace.
 Move _`Dockerfile`_  and _`requirements.txt`_ to the root of your workspace and start building docker container:
 
 `$ docker build -t <container's name> .
