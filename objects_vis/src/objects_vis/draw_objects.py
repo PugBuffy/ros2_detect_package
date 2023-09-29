@@ -40,7 +40,7 @@ class DrawObjects(Node):
 
         subscribers = [
             Subscriber(self, Image, '/image'),
-            Subscriber(self, Object2DArray, '/detection')
+            Subscriber(self, Object2DArray, '/bounding_boxes')
         ]
         
         ats = ApproximateTimeSynchronizer(subscribers,

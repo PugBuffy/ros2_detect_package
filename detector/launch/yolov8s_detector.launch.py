@@ -6,10 +6,10 @@ def generate_launch_description():
 
     camera = Node(
         package="detector",
-        executable="camera"
+        executable="camera", 
         # parameters=[
-        #     {'video_file':'/dev/video0'}
-        # ]
+        #      {'video_file':'/dev/video0'}
+        #  ]
     )
 
     detector = Node(
@@ -17,13 +17,21 @@ def generate_launch_description():
         executable="detector"
     )
 
+    # tracker = Node(
+    #     package="bytetrack_cpp_node",
+    #     executable='bytetrack_cpp_node'
+    # )
+
     vizualizator = Node(
         package="objects_vis",
         executable="draw_objects"
     )
 
+
+
     ld.add_action(camera)
     ld.add_action(detector)
+    # ld.add_action(tracker)
     ld.add_action(vizualizator)
 
     return ld
